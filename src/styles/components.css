@@ -1,0 +1,533 @@
+/* ------------------------------------------------------------------
+   Reusable UI components — buttons, links, cards, nav, slider
+------------------------------------------------------------------- */
+
+@layer components {
+/* Scroll progress ------------------------------------------------- */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 120;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--p, 0));
+  background: linear-gradient(90deg, #243d2d, #75513b 45%, #c98246);
+  pointer-events: none;
+}
+
+/* Buttons --------------------------------------------------------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    color 0.5s var(--ease),
+    background-color 0.5s var(--ease),
+    border-color 0.5s var(--ease),
+    transform 0.5s var(--ease),
+    box-shadow 0.5s var(--ease);
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  transform: translate3d(0, 101%, 0);
+  transition: transform 0.6s var(--ease);
+}
+
+.btn .ico {
+  transition: transform 0.5s var(--ease);
+}
+
+.btn:hover .ico,
+.btn:focus-visible .ico {
+  transform: translate3d(3px, -3px, 0);
+}
+
+.btn:active {
+  transform: scale(0.975);
+}
+
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-primary {
+  background: #243d2d;
+  color: #f1e5d2;
+  box-shadow: 0 18px 34px -24px rgba(36, 61, 45, 0.9);
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: #182a1f;
+  box-shadow: 0 26px 44px -22px rgba(36, 61, 45, 0.85);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  border-color: color-mix(in srgb, #243d2d 24%, transparent);
+  color: #243d2d;
+  background: transparent;
+}
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  border-color: #243d2d;
+  background: color-mix(in srgb, #243d2d 6%, transparent);
+  transform: translateY(-2px);
+}
+
+.btn-terra {
+  background: #c98246;
+  color: #fcf9f2;
+}
+.btn-terra:hover,
+.btn-terra:focus-visible {
+  background: #b5713a;
+  transform: translateY(-2px);
+}
+
+.btn-light {
+  background: #f1e5d2;
+  color: #243d2d;
+}
+.btn-light:hover,
+.btn-light:focus-visible {
+  background: #fcf9f2;
+  transform: translateY(-2px);
+}
+
+/* Links ----------------------------------------------------------- */
+.link-underline {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform 0.55s var(--ease);
+}
+
+.link-underline:hover::after,
+.link-underline:focus-visible::after,
+.link-underline[aria-current="true"]::after {
+  transform: scaleX(1);
+  transform-origin: 0 50%;
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.link-arrow .ico {
+  transition: transform 0.55s var(--ease);
+}
+
+.link-arrow:hover .ico,
+.link-arrow:focus-visible .ico,
+.group:hover .link-arrow .ico {
+  transform: translateX(6px);
+}
+
+/* Navigation ------------------------------------------------------ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition:
+    background-color 0.6s var(--ease),
+    box-shadow 0.6s var(--ease),
+    backdrop-filter 0.6s var(--ease),
+    padding 0.6s var(--ease);
+  padding-block: 26px;
+}
+
+.site-header.is-stuck {
+  background: color-mix(in srgb, #f1e5d2 86%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: 0 1px 0 color-mix(in srgb, #243d2d 10%, transparent);
+  padding-block: 13px;
+}
+
+.nav-link {
+  position: relative;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  padding-block: 4px;
+  color: color-mix(in srgb, #243d2d 72%, transparent);
+  transition: color 0.4s var(--ease);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link.is-active {
+  color: #243d2d;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: #75513b;
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform 0.5s var(--ease);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+  transform-origin: 0 50%;
+}
+
+/* Hamburger ------------------------------------------------------- */
+.burger span {
+  display: block;
+  height: 1.5px;
+  width: 22px;
+  background: #243d2d;
+  border-radius: 2px;
+  transition:
+    transform 0.55s var(--ease),
+    opacity 0.3s var(--ease),
+    width 0.55s var(--ease);
+}
+
+.burger span + span {
+  margin-top: 6px;
+}
+
+.burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.2);
+}
+.burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+.mobile-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  background: #f1e5d2;
+  clip-path: circle(0% at calc(100% - 44px) 44px);
+  transition: clip-path 0.85s var(--ease);
+  pointer-events: none;
+}
+
+.mobile-panel.is-open {
+  clip-path: circle(150% at calc(100% - 44px) 44px);
+  pointer-events: auto;
+}
+
+.mobile-panel li {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+
+.mobile-panel.is-open li {
+  opacity: 1;
+  transform: none;
+}
+
+/* Media & cards --------------------------------------------------- */
+.media {
+  position: relative;
+  overflow: hidden;
+  background: #d9ddcc;
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.3s var(--ease);
+}
+
+.media-zoom:hover img,
+.group:hover .media-zoom img {
+  transform: scale(1.07);
+}
+
+/* rAF-driven images must not inherit the slow zoom transition */
+.media img[data-parallax],
+.media img[data-scale] {
+  transition: none;
+}
+
+.card {
+  position: relative;
+  background: #fcf9f2;
+  border: 1px solid color-mix(in srgb, #243d2d 9%, transparent);
+  border-radius: 26px;
+  overflow: hidden;
+  transition:
+    transform 0.7s var(--ease),
+    box-shadow 0.7s var(--ease),
+    border-color 0.7s var(--ease),
+    background-color 0.7s var(--ease);
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-8px);
+  box-shadow: 0 40px 70px -46px rgba(36, 61, 45, 0.65);
+  border-color: color-mix(in srgb, #a8b49b 70%, transparent);
+}
+
+.plant-meta {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(8px);
+  overflow: hidden;
+  transition:
+    max-height 0.8s var(--ease),
+    opacity 0.6s var(--ease),
+    transform 0.7s var(--ease),
+    margin 0.7s var(--ease);
+}
+
+.card:hover .plant-meta,
+.card:focus-within .plant-meta {
+  max-height: 150px;
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: none) {
+  .plant-meta {
+    max-height: 150px;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.34rem 0.7rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, #a8b49b 28%, transparent);
+  color: #243d2d;
+}
+
+/* Marquee --------------------------------------------------------- */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+
+.marquee-wrap:hover .marquee {
+  animation-play-state: paused;
+}
+
+/* Before / after comparison slider -------------------------------- */
+.compare {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  touch-action: pan-y;
+  cursor: ew-resize;
+  user-select: none;
+}
+
+.compare-after {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0);
+}
+
+.compare-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--x, 50%);
+  width: 2px;
+  background: color-mix(in srgb, #fcf9f2 88%, transparent);
+  transform: translateX(-1px);
+  box-shadow: 0 0 24px rgba(24, 42, 31, 0.45);
+}
+
+.compare-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #f1e5d2;
+  color: #243d2d;
+  border: none;
+  cursor: grab;
+  box-shadow: 0 16px 34px -14px rgba(24, 42, 31, 0.7);
+  transition:
+    transform 0.45s var(--ease),
+    background-color 0.45s var(--ease);
+}
+
+.compare-knob:hover,
+.compare-knob:focus-visible {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: #fcf9f2;
+}
+
+.compare-knob:active {
+  cursor: grabbing;
+}
+
+/* Collage tiles --------------------------------------------------- */
+.tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 22px;
+  cursor: pointer;
+  background: #d9ddcc;
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform 1.4s var(--ease),
+    filter 1s var(--ease);
+}
+
+.tile:hover img,
+.tile:focus-visible img {
+  transform: scale(1.06);
+}
+
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(24, 42, 31, 0.78) 0%,
+    rgba(24, 42, 31, 0.12) 46%,
+    rgba(24, 42, 31, 0) 72%
+  );
+  opacity: 0.85;
+  transition: opacity 0.7s var(--ease);
+}
+
+.tile:hover::after {
+  opacity: 1;
+}
+
+/* Modal ----------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  background: color-mix(in srgb, #182a1f 72%, transparent);
+  backdrop-filter: blur(6px);
+  animation: modalIn 0.5s var(--ease);
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sheetIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.modal-sheet {
+  animation: sheetIn 0.7s var(--ease);
+}
+
+/* Forms ----------------------------------------------------------- */
+.field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid color-mix(in srgb, #f1e5d2 34%, transparent);
+  padding: 0.75rem 0;
+  font-size: 0.95rem;
+  transition: border-color 0.5s var(--ease);
+}
+
+.field::placeholder {
+  color: color-mix(in srgb, #f1e5d2 45%, transparent);
+}
+
+.field:focus {
+  outline: none;
+  border-color: #c98246;
+}
+
+.field[aria-invalid="true"] {
+  border-color: #e0a06a;
+}
+}

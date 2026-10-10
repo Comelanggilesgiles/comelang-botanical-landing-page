@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import "./styles/base.css";
+@import "./styles/animations.css";
+@import "./styles/components.css";
+
+/* ------------------------------------------------------------------
+   COMELANG — Design tokens
+   Replace these values to re-brand the entire site.
+------------------------------------------------------------------- */
+@theme {
+  --color-forest: #243d2d;
+  --color-forest-deep: #182a1f;
+  --color-sage: #a8b49b;
+  --color-sagesoft: #d9ddcc;
+  --color-ivory: #f1e5d2;
+  --color-earth: #75513b;
+  --color-terracotta: #c98246;
+  --color-cream: #fcf9f2;
+
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --ease-botanic: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --shadow-leaf: 0 24px 60px -32px rgba(36, 61, 45, 0.45);
+  --shadow-lift: 0 36px 80px -40px rgba(36, 61, 45, 0.55);
+}

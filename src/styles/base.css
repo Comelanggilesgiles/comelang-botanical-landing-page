@@ -1,0 +1,185 @@
+/* ------------------------------------------------------------------
+   Base layer — typography, rhythm, accessibility defaults
+------------------------------------------------------------------- */
+
+@layer base {
+:root {
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --header-h: 92px;
+  --shell: 1320px;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #fcf9f2;
+  color: #243d2d;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #c98246;
+  color: #fcf9f2;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  font-variation-settings: "SOFT" 0, "WONK" 0;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Visible, elegant focus ring everywhere */
+:focus-visible {
+  outline: 2px solid #c98246;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+section[id] {
+  scroll-margin-top: calc(var(--header-h) + 8px);
+}
+
+/* Layout shell ---------------------------------------------------- */
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .shell {
+    padding-inline: 56px;
+  }
+}
+
+/* Editorial type scale -------------------------------------------- */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(2.9rem, 8.6vw, 7.4rem);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 5.4vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.034em;
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.2vw, 2.9rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+.accent-italic {
+  font-style: italic;
+  font-variation-settings: "SOFT" 60, "WONK" 1;
+  color: #75513b;
+}
+
+.lede {
+  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  line-height: 1.72;
+  color: color-mix(in srgb, #243d2d 76%, transparent);
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.hairline {
+  height: 1px;
+  width: 100%;
+  background: color-mix(in srgb, #243d2d 14%, transparent);
+}
+
+.sr-only-focusable {
+  position: absolute;
+  left: 16px;
+  top: 12px;
+  z-index: 200;
+  transform: translateY(-200%);
+  background: #243d2d;
+  color: #fcf9f2;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  transition: transform 0.4s var(--ease);
+}
+
+.sr-only-focusable:focus {
+  transform: translateY(0);
+}
+
+/* Organic texture / grain overlay --------------------------------- */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(
+      circle at 20% 30%,
+      rgba(117, 81, 59, 0.07) 0,
+      transparent 45%
+    ),
+    radial-gradient(circle at 80% 70%, rgba(36, 61, 45, 0.07) 0, transparent 40%);
+}
+}
